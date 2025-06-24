@@ -15,6 +15,3 @@ k3d cluster create demo-cluster --agents 1
 mkdir -p ~/.kube
 k3d kubeconfig get demo-cluster > ~/.kube/config
 k3d kubeconfig get demo-cluster > /workspaces/Devops05/kubeconfig
-
-echo "[INFO] Testing cluster..."
-kubectl get nodes

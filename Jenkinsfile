@@ -35,11 +35,8 @@ pipeline {
     }
     stage('Deploy to Kubernetes') {
       steps {
-        script {
-          kubernetesDeploy(
-            configs: 'kubernetes/*.yml',
-            kubeconfigId: 'kubeconfig-mlcv-demo'
-          )
+        withCredentials([file(credentialsId: 'kubeconfig-mlcv-demo', variable: 'KUBECONFIG')]) {
+          sh 'kubectl apply -f kubernetes/deployment.yaml && kubectl apply -f kubernetes/service.yaml'
         }
       }
     }

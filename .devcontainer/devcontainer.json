@@ -1,0 +1,11 @@
+{
+  "name": "k3d-dev",
+  "image": "mcr.microsoft.com/devcontainers/base:debian",
+  "features": {
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {}
+  },
+  "postCreateCommand": "./setup.sh",
+  "mounts": [
+    "source=/var/run/docker.sock,target=/var/run/docker.sock,type=bind"
+  ]
+}

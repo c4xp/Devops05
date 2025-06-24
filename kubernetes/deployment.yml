@@ -17,3 +17,5 @@ spec:
           image: ghcr.io/c4xp/devops05:latest
           ports:
             - containerPort: 80
+      imagePullSecrets:
+        - name: github-mlcv-token

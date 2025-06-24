@@ -12,5 +12,9 @@ curl -s https://raw.githubusercontent.com/k3d-io/k3d/main/install.sh | bash
 echo "[INFO] Creating a k3d cluster..."
 k3d cluster create demo-cluster --agents 1
 
+mkdir -p ~/.kube
+k3d kubeconfig get demo-cluster > ~/.kube/config
+k3d kubeconfig get demo-cluster > /workspaces/Devops05/kubeconfig
+
 echo "[INFO] Testing cluster..."
 kubectl get nodes

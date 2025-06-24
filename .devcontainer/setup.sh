@@ -1,21 +1,15 @@
 #!/bin/bash
 set -e
 
-echo "[INFO] Installing dependencies..."
-sudo apt-get update
-sudo apt-get install -y curl git bash iptables conntrack socat ebtables apt-transport-https ca-certificates gnupg2
-
-echo "[INFO] Adding user to docker group..."
-sudo groupadd docker || true
-sudo usermod -aG docker $USER
-newgrp docker <<EONG
-echo "[INFO] User added to docker group"
-EONG
+echo "[INFO] Installing kubectl..."
+curl -LO "https://dl.k8s.io/release/$(curl -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+chmod +x kubectl
+sudo mv kubectl /usr/local/bin/
 
 echo "[INFO] Installing k3d..."
 curl -s https://raw.githubusercontent.com/k3d-io/k3d/main/install.sh | bash
 
-echo "[INFO] Creating a k3d cluster..."
+echo "[INFO] Creating cluster..."
 k3d cluster create demo-cluster --agents 1
 
 echo "[INFO] Saving kubeconfig..."
@@ -23,4 +17,5 @@ mkdir -p ~/.kube
 k3d kubeconfig get demo-cluster > ~/.kube/config
 k3d kubeconfig get demo-cluster > /workspaces/Devops05/kubeconfig
 
-echo "[INFO] Done! Cluster and config ready."
+echo "[INFO] Cluster nodes:"
+kubectl get nodes

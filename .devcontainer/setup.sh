@@ -5,6 +5,13 @@ echo "[INFO] Installing dependencies..."
 sudo apt-get update
 sudo apt-get install -y curl git bash iptables conntrack socat ebtables apt-transport-https ca-certificates gnupg2
 
+echo "[INFO] Adding user to docker group..."
+sudo groupadd docker || true
+sudo usermod -aG docker $USER
+newgrp docker <<EONG
+echo "[INFO] User added to docker group"
+EONG
+
 echo "[INFO] Installing k3d..."
 curl -s https://raw.githubusercontent.com/k3d-io/k3d/main/install.sh | bash
 

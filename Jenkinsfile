@@ -36,7 +36,7 @@ pipeline {
     stage('Deploy to Kubernetes') {
       steps {
         withCredentials([file(credentialsId: 'kubeconfig-mlcv-demo', variable: 'KUBECONFIG')]) {
-          sh 'kubectl apply -f kubernetes/deployment.yml && kubectl apply -f kubernetes/service.yml'
+          sh 'kubectl apply --validate=false --insecure-skip-tls-verify -f kubernetes/deployment.yml && kubectl apply --validate=false --insecure-skip-tls-verify -f kubernetes/service.yml'
         }
       }
     }
